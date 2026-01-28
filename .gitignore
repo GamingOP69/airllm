@@ -1,7 +1,8 @@
-.idea
-.ipynb_checkpoints
-.DS_Store
-airllm.egg-info
-build
-dist
-__pycache__
+.venv/
+__pycache__/
+model_shards/
+*.tmp
+.disk_probe.tmp
+.env
+*.pyc
+.ipynb_checkpoints/

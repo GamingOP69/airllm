@@ -67,8 +67,8 @@ class MlxModelPersister(ModelPersister):
 
 
 
-        safetensor_exists = os.path.exists(str(saving_path / (layer_name + 'mlx.npz')))
-        done_marker_exists = os.path.exists(str(saving_path / (layer_name + 'mlx.done')))
+        safetensor_exists = os.path.exists(str(saving_path / (layer_name + '.mlx.npz')))
+        done_marker_exists = os.path.exists(str(saving_path / (layer_name + '.mlx.done')))
 
         #print(f"checking {layer_name}, {saving_path} - {safetensor_exists},{done_marker_exists}")
 
@@ -78,14 +78,14 @@ class MlxModelPersister(ModelPersister):
         #save_file(state_dict, saving_path / (layer_name + 'safetensors'))
         weights = {k: v.to(torch.float16).numpy() for k, v in state_dict.items()}
         np.savez(
-            saving_path / (layer_name + 'mlx'),
+            saving_path / (layer_name + '.mlx'),
             **weights#map_torch_to_mlx(state_dict)
         )
 
-        print(f"saved as: {saving_path / (layer_name + 'mlx')}")
+        print(f"saved as: {saving_path / (layer_name + '.mlx')}")
 
         # set done marker
-        (saving_path / (layer_name + 'mlx.done')).touch()
+        (saving_path / (layer_name + '.mlx.done')).touch()
 
 
     def load_model(self, layer_name, path):

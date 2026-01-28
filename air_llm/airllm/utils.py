@@ -82,7 +82,9 @@ def clean_memory():
     torch.cuda.empty_cache()
 
 
-def uncompress_layer_state_dict(layer_state_dict):
+def uncompress_layer_state_dict(layer_state_dict, dequantize=True):
+    if not dequantize:
+        return layer_state_dict
     uncompressed_layer_state_dict = None
     if any(['4bit' in k for k in layer_state_dict.keys()]):
         uncompressed_layer_state_dict = {}
@@ -112,14 +114,14 @@ def uncompress_layer_state_dict(layer_state_dict):
 
     return layer_state_dict if uncompressed_layer_state_dict is None else uncompressed_layer_state_dict
 
-def load_layer(local_path, layer_name, profiling=False):
+def load_layer(local_path, layer_name, profiling=False, dequantize=True):
     #layer_state_dict = load_file(Path(local_path) / (layer_name + ".safetensors"), device="cpu")
     layer_state_dict = ModelPersister.get_model_persister().load_model(layer_name, local_path)
 
     if profiling:
         t = time.process_time()
 
-    to_return = uncompress_layer_state_dict(layer_state_dict)
+    to_return = uncompress_layer_state_dict(layer_state_dict, dequantize=dequantize)
 
     #clean_memory()
 

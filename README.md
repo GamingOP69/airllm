@@ -29,6 +29,8 @@
 * [Best AI Facial Expression Editor](https://crazyfaceai.com)
 
 ## Updates
+[2026/01/28] v2.12.0: **Universal Runtime Upgrade**. Added Environment Intelligence (Tier Detection), Auto-Optimization Engine, and Live Failover (Self-Healing).
+
 [2024/08/20] v2.11.0: Support Qwen2.5
 
 [2024/08/18] v2.10.1 Support CPU inference. Support non sharded models. Thanks @NavodPeiris for the great work! 
